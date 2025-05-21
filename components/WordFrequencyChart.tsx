@@ -72,6 +72,9 @@ export function WordFrequencyChart({
               <Bar dataKey="count" fill="#0344dc" radius={[0, 0, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
+          <span className="absolute right-2 bottom-2 text-xs text-slate-400 select-none pointer-events-none">
+            * Updated every 15 seconds
+          </span>
         </div>
       )}
     </div>

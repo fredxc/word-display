@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
-export async function GET(request: Request) {
+export async function GET(request: Request): Promise<Response> {
   try {
     const defaultMinutes = 5;
     let minutes = defaultMinutes;
@@ -12,20 +13,19 @@ export async function GET(request: Request) {
       const { searchParams } = new URL(request.url);
       const since = searchParams.get("since");
       if (since) {
-        minutes = parseInt(since.replace("m", ""));
+        const parsed = parseInt(since.replace("m", ""));
+        if (!isNaN(parsed)) {
+          minutes = parsed;
+        }
       }
-    } catch (error) {
-      console.error("Error parsing URL parameters:", error);
+    } catch (err) {
+      console.error("Error parsing query params:", err);
     }
 
     const fromDate = new Date(Date.now() - minutes * 60 * 1000);
 
     const logs = await prisma.wordLog.findMany({
-      where: {
-        createdAt: {
-          gte: fromDate,
-        },
-      },
+      where: { createdAt: { gte: fromDate } },
     });
 
     const wordCounts = logs.reduce((acc: Record<string, number>, log) => {

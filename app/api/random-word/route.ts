@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 
 export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 const words = [
   "serendipity",
@@ -22,35 +23,34 @@ const words = [
 ];
 
 function getRandomDelay() {
-  return Math.floor(Math.random() * 1001 + 500);
+  return Math.floor(Math.random() * 1001 + 500); // 500–1500ms
 }
 
 function shouldError() {
-  return Math.random() < 0.15;
+  return Math.random() < 0.15; // 15% chance
 }
 
-export async function GET() {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      if (shouldError()) {
-        resolve(
-          NextResponse.json({ error: "Failed to fetch word" }, { status: 500 })
-        );
-        return;
-      }
+export async function GET(): Promise<Response> {
+  await new Promise((resolve) => setTimeout(resolve, getRandomDelay()));
 
-      const randomIndex = Math.floor(Math.random() * words.length);
-      const randomWord = words[randomIndex];
+  if (shouldError()) {
+    return NextResponse.json(
+      { error: "Failed to fetch word" },
+      { status: 500 }
+    );
+  }
 
-      prisma.wordLog
-        .create({
-          data: {
-            word: randomWord,
-          },
-        })
-        .then(() => {
-          resolve(NextResponse.json({ word: randomWord }, { status: 200 }));
-        });
-    }, getRandomDelay());
-  });
+  const randomIndex = Math.floor(Math.random() * words.length);
+  const randomWord = words[randomIndex];
+
+  try {
+    await prisma.wordLog.create({
+      data: { word: randomWord },
+    });
+
+    return NextResponse.json({ word: randomWord });
+  } catch (error) {
+    console.error("Error saving word to database:", error);
+    return NextResponse.json({ error: "Database error" }, { status: 500 });
+  }
 }
