@@ -1,24 +1,24 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 const words = [
-  'serendipity',
-  'synergy',
-  'epiphany',
-  'quixotic',
-  'conundrum',
-  'catalyst',
-  'meticulous',
-  'ubiquitous',
-  'heuristic',
-  'algorithmic',
-  'aplomb',
-  'pseudocode',
-  'echelon',
-  'resilient',
-  'quantum'
+  "serendipity",
+  "synergy",
+  "epiphany",
+  "quixotic",
+  "conundrum",
+  "catalyst",
+  "meticulous",
+  "ubiquitous",
+  "heuristic",
+  "algorithmic",
+  "aplomb",
+  "pseudocode",
+  "echelon",
+  "resilient",
+  "quantum",
 ];
 
 function getRandomDelay() {
@@ -34,10 +34,7 @@ export async function GET() {
     setTimeout(() => {
       if (shouldError()) {
         resolve(
-          NextResponse.json(
-            { error: 'Failed to fetch word' },
-            { status: 500 }
-          )
+          NextResponse.json({ error: "Failed to fetch word" }, { status: 500 })
         );
         return;
       }
@@ -45,18 +42,15 @@ export async function GET() {
       const randomIndex = Math.floor(Math.random() * words.length);
       const randomWord = words[randomIndex];
 
-      prisma.wordLog.create({
-        data: {
-          word: randomWord
-        }
-      }).then(() => {
-        resolve(
-          NextResponse.json(
-            { word: randomWord },
-            { status: 200 }
-          )
-        );
-      });
+      prisma.wordLog
+        .create({
+          data: {
+            word: randomWord,
+          },
+        })
+        .then(() => {
+          resolve(NextResponse.json({ word: randomWord }, { status: 200 }));
+        });
     }, getRandomDelay());
   });
 }

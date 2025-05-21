@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
 
-export const runtime = 'nodejs';
+export const runtime = "nodejs";
 
 export async function GET(request: Request) {
   try {
@@ -10,12 +10,12 @@ export async function GET(request: Request) {
 
     try {
       const { searchParams } = new URL(request.url);
-      const since = searchParams.get('since');
+      const since = searchParams.get("since");
       if (since) {
-        minutes = parseInt(since.replace('m', ''));
+        minutes = parseInt(since.replace("m", ""));
       }
     } catch (error) {
-      console.error('Error parsing URL parameters:', error);
+      console.error("Error parsing URL parameters:", error);
     }
 
     const fromDate = new Date(Date.now() - minutes * 60 * 1000);
@@ -23,9 +23,9 @@ export async function GET(request: Request) {
     const logs = await prisma.wordLog.findMany({
       where: {
         createdAt: {
-          gte: fromDate
-        }
-      }
+          gte: fromDate,
+        },
+      },
     });
 
     const wordCounts = logs.reduce((acc: Record<string, number>, log) => {
@@ -35,9 +35,9 @@ export async function GET(request: Request) {
 
     return NextResponse.json(wordCounts);
   } catch (error) {
-    console.error('Error fetching word stats:', error);
+    console.error("Error fetching word stats:", error);
     return NextResponse.json(
-      { error: 'Failed to fetch word stats' },
+      { error: "Failed to fetch word stats" },
       { status: 500 }
     );
   }

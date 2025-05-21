@@ -1,11 +1,11 @@
-'use client';
+"use client";
 
-import { useState, useEffect, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { WordDisplay } from '@/components/WordDisplay';
-import { WordHistory } from '@/components/WordHistory';
-import { WordFrequencyChart } from '@/components/WordFrequencyChart';
-import { fetchRandomWord, fetchWordStats } from '@/lib/services/wordService';
+import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect, useMemo } from "react";
+import { WordDisplay } from "@/components/WordDisplay";
+import { WordHistory } from "@/components/WordHistory";
+import { WordFrequencyChart } from "@/components/WordFrequencyChart";
+import { fetchRandomWord, fetchWordStats } from "@/lib/services/wordService";
 
 export default function Home() {
   const [isPaused, setIsPaused] = useState(false);
@@ -17,10 +17,10 @@ export default function Home() {
     error: wordErrorData,
     refetch: refetchWord,
     isLoading: isWordLoading,
-    isFetching: isWordFetching
+    isFetching: isWordFetching,
   } = useQuery({
     queryFn: fetchRandomWord,
-    queryKey: ['random-word'],
+    queryKey: ["random-word"],
     refetchInterval: isPaused ? 0 : 10000,
     retry: 5,
     retryOnMount: true,
@@ -29,20 +29,20 @@ export default function Home() {
     staleTime: 10000,
   });
 
-  const {
-    data: statsData,
-    isLoading: statsLoading
-  } = useQuery({
+  const { data: statsData, isLoading: statsLoading } = useQuery({
     refetchInterval: 15000,
     queryFn: fetchWordStats,
-    queryKey: ['word-stats'],
+    queryKey: ["word-stats"],
     staleTime: 15000,
   });
 
   useEffect(() => {
     if (wordData && failureCount === 0) {
       setWordHistory((prev) => {
-        const newHistory = [wordData.word, ...prev.filter(w => w !== wordData.word)];
+        const newHistory = [
+          wordData.word,
+          ...prev.filter((w) => w !== wordData.word),
+        ];
         return newHistory.slice(0, 5);
       });
     }
@@ -50,15 +50,18 @@ export default function Home() {
 
   useEffect(() => {
     if (failureCount > 0) {
-      console.error('Query error:', wordErrorData);
+      console.error("Query error:", wordErrorData);
     }
   }, [failureCount, wordErrorData]);
 
-  const chartData = useMemo(() =>
-    statsData ? Object.entries(statsData).map(([word, count]) => ({
-      word,
-      count
-    })) : [],
+  const chartData = useMemo(
+    () =>
+      statsData
+        ? Object.entries(statsData).map(([word, count]) => ({
+            word,
+            count,
+          }))
+        : [],
     [statsData]
   );
 
@@ -86,10 +89,7 @@ export default function Home() {
 
           {/* Word Frequency Chart */}
           <div className="w-full max-w-2xl">
-            <WordFrequencyChart
-              data={chartData}
-              isLoading={statsLoading}
-            />
+            <WordFrequencyChart data={chartData} isLoading={statsLoading} />
           </div>
         </div>
       </div>

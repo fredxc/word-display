@@ -1,6 +1,6 @@
-import { CornerBorder } from './CornerBorder';
-import { Loader2, Pause, Play, RefreshCw } from 'lucide-react';
-import { memo } from 'react';
+import { CornerBorder } from "./CornerBorder";
+import { Loader2, Pause, Play, RefreshCw } from "lucide-react";
+import { memo } from "react";
 
 interface WordDisplayProps {
   word: string | undefined;
@@ -23,8 +23,8 @@ export const WordDisplay = memo(function WordDisplay({
 }: WordDisplayProps) {
   const buttonBaseClasses = "flex items-center justify-center w-32 h-10";
   const pauseButtonClasses = isPaused
-    ? 'bg-slate-dark text-white hover:bg-slate-dark/90'
-    : 'border border-slate-medium/20 bg-blue-light hover:bg-blue-light/30';
+    ? "bg-slate-dark text-white hover:bg-slate-dark/90"
+    : "border border-slate-medium/20 bg-blue-light hover:bg-blue-light/30";
 
   return (
     <div className="w-full bg-white border border-border-light p-6 pt-12 relative">
@@ -38,7 +38,11 @@ export const WordDisplay = memo(function WordDisplay({
         ) : word ? (
           <div className="relative flex flex-col items-center">
             <div className="relative flex items-center">
-              <h1 className={`text-4xl font-bold text-center ${isFetching ? 'text-slate-medium' : ''}`}>
+              <h1
+                className={`text-4xl font-bold text-center ${
+                  isFetching ? "text-slate-medium" : ""
+                }`}
+              >
                 {word}
               </h1>
               {isFetching && (
@@ -64,22 +68,30 @@ export const WordDisplay = memo(function WordDisplay({
             className={`${buttonBaseClasses} bg-amber-vibrant text-white disabled:opacity-50 disabled:cursor-not-allowed enabled:hover:bg-amber-vibrant/90`}
             aria-label="Refresh word"
           >
-            <RefreshCw className={`h-4 w-4 mr-2 ${isFetching ? 'animate-spin' : ''}`} />
+            <RefreshCw
+              className={`h-4 w-4 mr-2 ${isFetching ? "animate-spin" : ""}`}
+            />
             Refresh
           </button>
           <button
             onClick={onPauseToggle}
             className={`${buttonBaseClasses} ${pauseButtonClasses}`}
-            aria-label={isPaused ? "Resume word generation" : "Pause word generation"}
+            aria-label={
+              isPaused ? "Resume word generation" : "Pause word generation"
+            }
           >
             {isPaused ? (
-              <><Play className="h-4 w-4 mr-2" /> Resume</>
+              <>
+                <Play className="h-4 w-4 mr-2" /> Resume
+              </>
             ) : (
-              <><Pause className="h-4 w-4 mr-2" /> Pause</>
+              <>
+                <Pause className="h-4 w-4 mr-2" /> Pause
+              </>
             )}
           </button>
         </div>
       </div>
     </div>
   );
-}); 
+});

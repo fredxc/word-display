@@ -60,10 +60,10 @@ App will be running at [http://localhost:3000](http://localhost:3000)
 
 ## 🔎 Scripts
 
-| Command                   | Purpose                        |
-|---------------------------|--------------------------------|
-| `npm run dev`             | Start local dev server         |
-| `npx prisma migrate dev`  | Reset or apply schema changes  |
+| Command                  | Purpose                       |
+| ------------------------ | ----------------------------- |
+| `npm run dev`            | Start local dev server        |
+| `npx prisma migrate dev` | Reset or apply schema changes |
 
 ---
 

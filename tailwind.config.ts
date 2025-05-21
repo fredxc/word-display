@@ -1,36 +1,36 @@
-import type { Config } from 'tailwindcss';
+import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       colors: {
-        white: '#FFFFFF',
+        white: "#FFFFFF",
         slate: {
-          dark: '#111827',
-          medium: '#667085',
+          dark: "#111827",
+          medium: "#667085",
         },
         blue: {
-          vibrant: '#0344dc',
-          light: 'rgba(232, 247, 255, 0.57)',
+          vibrant: "#0344dc",
+          light: "rgba(232, 247, 255, 0.57)",
         },
         amber: {
-          vibrant: '#f65009',
+          vibrant: "#f65009",
         },
         red: {
-          error: '#f04438',
+          error: "#f04438",
         },
-        background: '#f9f8f7',
+        background: "#f9f8f7",
         border: {
-          light: '#fddcce',
+          light: "#fddcce",
         },
       },
       borderWidth: {
-        '3': '3px',
+        "3": "3px",
       },
     },
   },
