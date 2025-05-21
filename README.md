@@ -1,6 +1,6 @@
 # ⚡ Ephemeral Word Display
 
-This is my submission for the **Frontend/Fullstack Challenge** by Struck. It’s a real-time, styled Next.js app that displays a randomly generated word, automatically refreshes every 10 seconds, and keeps a short history—with bonus word frequency analytics backed by a PostgreSQL database via Prisma.
+This is my submission for the **Frontend/Fullstack Challenge** by Struck.
 
 ---
 
@@ -9,8 +9,8 @@ This is my submission for the **Frontend/Fullstack Challenge** by Struck. It’s
 ### 1. Clone the repo
 
 ```bash
-git clone https://github.com/your-username/ephemeral-word-display.git
-cd ephemeral-word-display
+git clone https://github.com/your-username/word-display.git
+cd word-display
 ```
 
 ### 2. Create `.env`
@@ -70,7 +70,3 @@ App will be running at [http://localhost:3000](http://localhost:3000)
 ## 📬 Questions?
 
 Reach out at [fredxcapanema@gmail.com](mailto:fredxcapanema@gmail.com) or connect on [LinkedIn](https://linkedin.com/in/fredericocapanema)
-
----
-
-Made with passion and purpose ✨
